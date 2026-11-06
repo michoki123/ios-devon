@@ -526,7 +526,7 @@ new file mode 100644
 +		return ENOMEM;
 +	}
 +	su.dma_pa = ptoa_64(pn);
-+	su.lun = 0;
++	su.lun = 4;
 +	su.secsize = DEV_BSIZE;
 +
 +	lck_mtx_lock(&sweet_ufs_lock);
