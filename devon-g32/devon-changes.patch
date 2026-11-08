@@ -1,0 +1,26 @@
+diff --git a/shim/build.sh b/shim/build.sh
+index 8853529..4ca7e39 100755
+--- a/shim/build.sh
++++ b/shim/build.sh
+@@ -41,7 +41,7 @@ else
+ 	(cd out && rm -rf rd && mkdir rd && cd rd && find . | cpio -o -H newc | gzip -9 > ../ramdisk.bin)
+ fi
+ "$MKBOOTIMG" --header_version "$BOOT_HEADER_VERSION" --kernel out/Image --ramdisk out/ramdisk.bin \
+-	--os_version 13.0.0 --os_patch_level 2025-01 \
++	--os_version 17.0.0 --os_patch_level 2026-10 \
+ 	--cmdline "console=null" -o out/shim-boot.img
+ # Host render of the console layout.
+ gcc -O1 -Wall -o out/host_test console.c host_test.c && ./out/host_test
+diff --git a/tools/mkadt.py b/tools/mkadt.py
+index 61a7767..28dd87c 100644
+--- a/tools/mkadt.py
++++ b/tools/mkadt.py
+@@ -124,7 +124,7 @@ def build(seed=None, qemu=False, highmem=False, device="topaz", memory=None):
+         # files), so e.g. DataMigration never records LastSystemVersion and
+         # migrates on every boot. Synthetic ECID (not the phone's); chip-id
+         # of the A11 that the iPhone X userland expects.
+-        ('unique-chip-id', struct.pack('<Q', 0x5350455300000001 if device == 'spes' else SWEET_ECID)),
++        ('unique-chip-id', struct.pack('<Q', 0x4733320000000001 if device == 'spes' else SWEET_ECID)),
+         ('chip-id', u32(0x8015)),
+         # Security status as on a dev-fused, undemoted board (tuple 0,0,1,1):
+         # MobileGestalt reads these from /chosen, and mobileactivationd's
